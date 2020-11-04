@@ -8,7 +8,7 @@ public class Water_Bucket : MonoBehaviour
     private bool currWatering = false;
     private float wateringTime = 2f;//this can be an upragadable skill?
     private float countdown;
-    private int uses = 4;//get this value from other script upgrade?????
+    private int uses = 10;//get this value from other script upgrade?????
     private Basic_Flower flower;
 
 
