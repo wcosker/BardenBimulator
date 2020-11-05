@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using System.Diagnostics;
+using System;
 
 public class MenuTest : MonoBehaviour
 {
@@ -9,24 +11,36 @@ public class MenuTest : MonoBehaviour
     [MenuItem("Scripts/Set Flowers %g")]
     static void DoSomething()
     {
-        UnityEngine.Debug.Log("Doing Something... : "+GameObject.FindGameObjectsWithTag("FlowerEnemy")[0].transform.position);
-        //GameObject.FindGameObjectsWithTag("FlowerEnemy")[0].transform.position = new Vector3(-3.3f,3,0);
         GameObject[] gos;
         gos = GameObject.FindGameObjectsWithTag("FlowerEnemy");
-        float x = -8;
-        float y = 3.5f;
-        foreach (GameObject go in gos)
+        //TODO: this code is so fucking ugly LMAO there's gotta be a better way to do this but idc rn
+        float[,] gridList = new float[18, 2]
         {
-            x+=2;
-            go.transform.position = new Vector3(x, y, 0);
-            if (17 < x)
-            {
-                go.transform.position = new Vector3(x - 24, y-6, 0);
-            }
-            else if (5 < x || 17 < x)
-            {
-                go.transform.position = new Vector3(x-12, y-3, 0);
-            }
+            {-8,3.5f },
+            {-8,3.5f },
+            {-8,3.5f },
+            {-8,3.5f },
+            {-8,3.5f },
+            {-8,3.5f },
+            {-8,3.5f },
+            {-8,3.5f },
+            {-8,3.5f },
+            {-8,3.5f },
+            {-8,3.5f },
+            {-8,3.5f },
+            {-8,3.5f },
+            {-8,3.5f },
+            {-8,3.5f },
+            {-8,3.5f },
+            {-8,3.5f },
+            {-8,3.5f },
+        };
+        UnityEngine.Debug.Log(gridList[3, 1]);
+
+        for (int k = 0; k < gridList.Length / 2; k++)
+        {
+            UnityEngine.Debug.Log(gridList[k, 0]);//gets all x values
+            UnityEngine.Debug.Log(gridList[k, 0]);//gets all y values
         }
     }
 }
