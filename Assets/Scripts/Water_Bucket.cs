@@ -10,6 +10,7 @@ public class Water_Bucket : MonoBehaviour
     private float countdown;
     private int uses = 10;//get this value from other script upgrade?????
     private Basic_Flower flower;
+    private Progress_Bar wateringProgressBar;
 
 
     /* *************************************************************************************************************
@@ -51,8 +52,14 @@ public class Water_Bucket : MonoBehaviour
         if (currWatering)//this is catching early leaving of watering
         {
             UnityEngine.Debug.Log("exited before watering completed!");
+            wateringProgressBar.setProgress(0);
             currWatering = false;
         }
+    }
+
+    void Start()
+    {
+        wateringProgressBar = GameObject.Find("WateringBar").GetComponent<Progress_Bar>();
     }
 
     void Update()
@@ -60,12 +67,14 @@ public class Water_Bucket : MonoBehaviour
         if (currWatering)//checks if flower is being watered
         {
             countdown -= Time.deltaTime;
+            wateringProgressBar.setProgress(countdown / wateringTime);
             if (countdown < 0)//END WATERING CYCLE
             {
                 //UnityEngine.Debug.Log("Flower has been healed!");
                 flower.resetTimer();
                 currWatering = false;
                 uses--;
+                wateringProgressBar.setProgress(0);
                 //TODO: cancel water animation
             }
         }
