@@ -7,8 +7,8 @@ public class WaterBucket : MonoBehaviour
 {
   //              UPGRADABLE SKILLS
   //***************************************************
-    public float wateringTime = 2f;//BASE WATERING TIME
-    public int uses = 4;          //BASE USES
+    private float wateringTime;//BASE WATERING TIME
+    private int uses;          //BASE USES
   //***************************************************
   //The upgraded values of these skills are held in GameData.cs
   // if ur reading this, ur cute :)
@@ -26,13 +26,15 @@ public class WaterBucket : MonoBehaviour
        *                                                                                                           *
        * The update func has the countdown for the time spent watering because of timing reasons                   *
        *                                                                                                           *
-       * The rest of the script has the uses incrementer and decrementer                                           *
+       * The rest of the script has the maxUses incrementer and decrementer                                           *
        *************************************************************************************************************
      */
 
     void Start()
     {
         wateringProgressBar = GameObject.Find("WateringBar").GetComponent<ProgressBar>();
+        wateringTime = GameControl.control.wateringTime;
+        uses = GameControl.control.maxUses;
     }
 
     private void OnTriggerEnter2D(Collider2D col)//collision with flower object occurs
@@ -42,7 +44,6 @@ public class WaterBucket : MonoBehaviour
             flower = col.GetComponent<BasicFlower>();
             countdown = wateringTime;
             currWatering = true;
-            UnityEngine.Debug.Log(wateringTime);
             //TODO: BEGIN WATERING ANIMATION HERE
             UnityEngine.Debug.Log("Begin watering... (FROM ENTER)");
         }
@@ -74,14 +75,15 @@ public class WaterBucket : MonoBehaviour
     {
         if (currWatering)//checks if flower is being watered
         {
+            UnityEngine.Debug.Log(uses);
             countdown -= Time.deltaTime;
             wateringProgressBar.setProgress(countdown / wateringTime);
             if (countdown < 0)//END WATERING CYCLE
             {
-                //UnityEngine.Debug.Log("Flower has been healed!");
+
                 flower.resetTimer();
                 currWatering = false;
-                uses--;
+                uses --;
                 wateringProgressBar.setProgress(0);
                 //TODO: cancel water animation
             }

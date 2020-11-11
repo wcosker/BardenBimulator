@@ -6,9 +6,9 @@ using UnityEngine;
 
 public class PlayerControls : MonoBehaviour
 {
-  //              UPGRADABLE SKILLS
-  //******************************************
-    public float moveSpeed = 10f;//BASE SPEED
+    //              UPGRADABLE SKILLS
+    //******************************************
+    private float moveSpeed;//BASE SPEED
   //******************************************
   //The upgraded values of these skills are held in GameData.cs
 
@@ -20,6 +20,7 @@ public class PlayerControls : MonoBehaviour
     // Use this for initialization
     private void Start()
     {
+        moveSpeed = GameControl.control.moveSpeed;
         rb = GetComponent<Rigidbody2D>();
     }
 
