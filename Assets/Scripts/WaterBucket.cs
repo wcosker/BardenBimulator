@@ -66,7 +66,7 @@ public class WaterBucket : MonoBehaviour
         if (currWatering)//this is catching early leaving of watering
         {
             UnityEngine.Debug.Log("exited before watering completed!");
-            wateringProgressBar.setProgress(0);
+            wateringProgressBar.resetProgress();
             currWatering = false;
         }
     }
@@ -84,7 +84,7 @@ public class WaterBucket : MonoBehaviour
                 flower.resetTimer();
                 currWatering = false;
                 uses --;
-                wateringProgressBar.setProgress(0);
+                wateringProgressBar.resetProgress();
                 //TODO: cancel water animation
             }
         }

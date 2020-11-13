@@ -14,7 +14,7 @@ public class ProgressBar : MonoBehaviour
 
     public void setProgress(float percentageFilled)
     {
-        bar.fillAmount = percentageFilled;
+        bar.fillAmount = 1-percentageFilled;
     }
 
     public void resetProgress()
