@@ -17,7 +17,7 @@ public class SlowPlayer : MonoBehaviour
 
     void Update()
     {
-        gameObject.transform.localScale += new Vector3(0.001f, 0.001f, 0f);
+        gameObject.transform.localScale = new Vector3(Mathf.Sin(Time.time / 1.2f) / 6 + 3f, Mathf.Sin(Time.time / 1.2f) / 6 + 3f, 0f);
         gameObject.GetComponent<CircleCollider2D>().radius = gameObject.GetComponent<SpriteRenderer>().sprite.bounds.size.x/2.06f;
     }
 }
