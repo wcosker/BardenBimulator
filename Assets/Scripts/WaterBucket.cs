@@ -26,7 +26,7 @@ public class WaterBucket : MonoBehaviour
        *                                                                                                           *
        * The update func has the countdown for the time spent watering because of timing reasons                   *
        *                                                                                                           *
-       * The rest of the script has the maxUses incrementer and decrementer                                           *
+       * The rest of the script has the maxUses incrementer and decrementer                                        *
        *************************************************************************************************************
      */
 
@@ -75,12 +75,10 @@ public class WaterBucket : MonoBehaviour
     {
         if (currWatering)//checks if flower is being watered
         {
-            UnityEngine.Debug.Log(uses);
             countdown -= Time.deltaTime;
             wateringProgressBar.setProgress(countdown / wateringTime);
             if (countdown < 0)//END WATERING CYCLE
             {
-
                 flower.resetTimer();
                 currWatering = false;
                 uses --;

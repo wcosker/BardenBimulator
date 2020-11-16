@@ -45,4 +45,9 @@ public class PlayerControls : MonoBehaviour
                 rb.velocity = Vector2.zero;
         }
     }
+
+    public void setCharSpeed(float slowedMs)
+    {
+        moveSpeed = slowedMs;
+    }
 }
