@@ -27,15 +27,15 @@ public class BasicFlower : MonoBehaviour
         if (timeTilDeath > 0)
         {
             timeTilDeath -= Time.deltaTime;//decrease plant health
+            checkFlowerHealth();//calls function that checks flowers time til death/health
         }
-
-        checkFlowerHealth();//calls function that checks flowers time til death/health
     }
                                                                        
     void checkFlowerHealth()//TODO: make this more dynamic, every flower should be able to call this method cleanly
     {
         if (originalTime / 2 > timeTilDeath)
         {
+            //When this happens, edit the attack
             sr.sprite = redSprite;
             canHeal = true;
         }

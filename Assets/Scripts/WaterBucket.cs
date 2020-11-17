@@ -30,11 +30,19 @@ public class WaterBucket : MonoBehaviour
        *************************************************************************************************************
      */
 
+
+
     void Start()
     {
         wateringProgressBar = GameObject.Find("WateringBar").GetComponent<ProgressBar>();
         wateringTime = GameControl.control.wateringTime;
         uses = GameControl.control.maxUses;
+    }
+
+    public void subtractUses()
+    {
+        uses--;
+        UnityEngine.Debug.Log("Uses -1!");
     }
 
     private void OnTriggerEnter2D(Collider2D col)//collision with flower object occurs
@@ -45,7 +53,6 @@ public class WaterBucket : MonoBehaviour
             countdown = wateringTime;
             currWatering = true;
             //TODO: BEGIN WATERING ANIMATION HERE
-            UnityEngine.Debug.Log("Begin watering... (FROM ENTER)");
         }
     }
 
@@ -57,7 +64,6 @@ public class WaterBucket : MonoBehaviour
             countdown = wateringTime;
             currWatering = true;
             //TODO: BEGIN WATERING ANIMATION HERE
-            UnityEngine.Debug.Log("Begin watering... (FROM STAY)");
         }
     }
 
@@ -65,7 +71,6 @@ public class WaterBucket : MonoBehaviour
     {
         if (currWatering)//this is catching early leaving of watering
         {
-            UnityEngine.Debug.Log("exited before watering completed!");
             wateringProgressBar.resetProgress();
             currWatering = false;
         }
@@ -79,6 +84,7 @@ public class WaterBucket : MonoBehaviour
             wateringProgressBar.setProgress(countdown / wateringTime);
             if (countdown < 0)//END WATERING CYCLE
             {
+
                 flower.resetTimer();
                 currWatering = false;
                 uses --;
