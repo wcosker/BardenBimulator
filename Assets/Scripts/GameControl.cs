@@ -3,6 +3,7 @@ using System.Collections;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class GameControl : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class GameControl : MonoBehaviour
     public int maxUses;//these are the saved player values
     public float moveSpeed;
     public float wateringTime;
+    public AudioMixer mixer;
 
     void Awake()//if DDOL object already exists, destroy yourself bro :)
     {
@@ -27,6 +29,12 @@ public class GameControl : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    void Start()//set up music and all player prefs etc etc
+    {
+        mixer.SetFloat("musicVol", PlayerPrefs.GetFloat("musicVol", 0));
+        mixer.SetFloat("fxVol", PlayerPrefs.GetFloat("fxVol", 0));
     }
 
     public void Save()//saves player data to a file (data.swag)
@@ -64,6 +72,18 @@ public class GameControl : MonoBehaviour
         {
             Debug.LogError("Save file not found in " + path);
         }
+    }
+
+    public void musicVolume(float volume)
+    {
+        mixer.SetFloat("musicVol", volume);
+        PlayerPrefs.SetFloat("musicVol", volume);
+    }
+
+    public void effectsVolume(float volume)
+    {
+        mixer.SetFloat("fxVol", volume);
+        PlayerPrefs.SetFloat("fxVol", volume);
     }
 }
 

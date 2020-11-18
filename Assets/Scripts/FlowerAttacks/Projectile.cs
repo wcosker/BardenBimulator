@@ -22,12 +22,12 @@ public class Projectile : MonoBehaviour
         Vector3 dir = player.transform.position - transform.position;
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-        GetComponent<Rigidbody2D>().AddForce(transform.right * 10);
+        GetComponent<Rigidbody2D>().AddForce(transform.right * 30);
     }
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if(col.tag == "Player" && countdown > 4)
+        if(col.tag == "Player" && countdown < 6)
         {
             //TODO: ANIMATION/OTHER EFFECTS HERE
             col.GetComponent<WaterBucket>().subtractUses();

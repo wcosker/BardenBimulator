@@ -47,6 +47,7 @@ MonoBehaviour:
   maxUses: 4
   moveSpeed: 8
   wateringTime: 2
+  mixer: {fileID: 24100000, guid: f7c4f134558274fe586f6b638bb6456b, type: 2}
 --- !u!82 &6639565337253170812
 AudioSource:
   m_ObjectHideFlags: 0
