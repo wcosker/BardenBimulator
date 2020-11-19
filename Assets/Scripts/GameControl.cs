@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Collections;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.SceneManagement;
 
 public class GameControl : MonoBehaviour
 {
@@ -84,6 +84,11 @@ public class GameControl : MonoBehaviour
     {
         mixer.SetFloat("fxVol", volume);
         PlayerPrefs.SetFloat("fxVol", volume);
+    }
+
+    public void goToNewScene(String sceneName)
+    {
+        SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
     }
 }
 
