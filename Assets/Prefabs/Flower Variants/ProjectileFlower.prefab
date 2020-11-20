@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectile: {fileID: 4869065435403228567, guid: 7a65cf289ff2652488759e4e1dac9455,
     type: 3}
-  player: {fileID: 36431050791052958, guid: 80801babec2ce334684abc0f49a8c8d8, type: 3}
+  activatedBullet: {fileID: 21300000, guid: 186e69f7c6d79cb47bf6858a3fc0f0c2, type: 3}
 --- !u!1001 &1997695406217789632
 PrefabInstance:
   m_ObjectHideFlags: 0

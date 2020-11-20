@@ -1,20 +1,20 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class WaterBucket : MonoBehaviour
 {
   //              UPGRADABLE SKILLS
   //***************************************************
     private float wateringTime;//BASE WATERING TIME
-    private int uses;          //BASE USES
+    private float uses;          //BASE USES
   //***************************************************
   //The upgraded values of these skills are held in GameData.cs
   // if ur reading this, ur cute :)
 
     private bool currWatering = false;
+    private bool currFilling = false;
     private float countdown;
+    private GameObject[] bucketUI;
     private BasicFlower flower;
     private ProgressBar wateringProgressBar;
 
@@ -30,24 +30,51 @@ public class WaterBucket : MonoBehaviour
        *************************************************************************************************************
      */
 
-
-
     void Start()
     {
+        bucketUI = GameObject.FindGameObjectsWithTag("BucketUI");
         wateringProgressBar = GameObject.Find("WateringBar").GetComponent<ProgressBar>();
         wateringTime = GameControl.control.wateringTime;
-        uses = GameControl.control.maxUses;
+        uses = GameControl.control.maxUses + 0.00001f; ;
     }
 
-    public void subtractUses()
+    public void subtractUses()//simple code for other scripts to call
     {
-        uses--;
-        UnityEngine.Debug.Log("Uses -1!");
+        if (uses > 0)//TODO: fix this lol, right now it works fine up until the amount of uses left is less than one.
+        {
+            uses--;
+            subtractUseUI();
+        }
+    }
+
+    public void startRefill()//resets water bucket uses
+    {
+        currFilling = true;
+    }
+
+    private void subtractUseUI()
+    {
+        int i = bucketUI.Length - 1;
+        bool flag = true;
+        while(flag)
+        {
+            if (bucketUI[i].GetComponent<Image>().fillAmount > 0)
+            {
+                bucketUI[i].GetComponent<Image>().fillAmount--;
+                flag = false;
+            }
+            i--;
+        }
+    }
+
+    public void stopRefill()
+    {
+        currFilling = false;
     }
 
     private void OnTriggerEnter2D(Collider2D col)//collision with flower object occurs
     {
-        if (col.tag == "FlowerEnemy" && col.GetComponent<BasicFlower>().getCanHeal() && uses > 0)
+        if (col.tag == "FlowerEnemy" && col.GetComponent<BasicFlower>().getCanHeal() && uses >= 1)
         {
             flower = col.GetComponent<BasicFlower>();
             countdown = wateringTime;
@@ -58,7 +85,7 @@ public class WaterBucket : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D col)//player is already in object
     {
-        if (!currWatering && col.tag == "FlowerEnemy" && col.GetComponent<BasicFlower>().getCanHeal() && uses > 0)
+        if (!currWatering && col.tag == "FlowerEnemy" && col.GetComponent<BasicFlower>().getCanHeal() && uses >= 1)
         {
             flower = col.GetComponent<BasicFlower>();
             countdown = wateringTime;
@@ -82,15 +109,21 @@ public class WaterBucket : MonoBehaviour
         {
             countdown -= Time.deltaTime;
             wateringProgressBar.setProgress(countdown / wateringTime);
-            if (countdown < 0)//END WATERING CYCLE
+            if (countdown < 0)//FLOWER IS NOW WATERED!!! HOORAY
             {
-
+                subtractUseUI();
                 flower.resetTimer();
                 currWatering = false;
-                uses --;
+                uses--;
                 wateringProgressBar.resetProgress();
                 //TODO: cancel water animation
             }
+        }
+
+        if (currFilling && uses < GameControl.control.maxUses)
+        {
+            bucketUI[(int)Mathf.Ceil(uses - GameControl.control.maxUses + 3)].GetComponent<Image>().fillAmount += Time.deltaTime / 2;
+            uses += Time.deltaTime/2;
         }
     }
 }

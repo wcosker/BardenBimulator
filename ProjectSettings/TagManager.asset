@@ -6,6 +6,7 @@ TagManager:
   tags:
   - FlowerEnemy
   - Atank
+  - BucketUI
   layers:
   - Default
   - TransparentFX
